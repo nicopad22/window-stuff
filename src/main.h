@@ -1,0 +1,20 @@
+#include <windows.h>
+#include <stdint.h>
+
+typedef struct window_info {
+	void *memory;
+	int client_height;
+	int client_width;
+} window_info;
+
+typedef struct player {
+	int x;
+	int y;
+
+	int speed;
+	
+	void (*KeyStrokeCallBack)(struct player * p, WPARAM w);
+} player_t;
+
+void OnKeyStroke(player_t *player, WPARAM key);
+void drawRectangle(window_info info, int x, int y, int width, int height, uint32_t color);
