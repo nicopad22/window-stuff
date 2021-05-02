@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <windowsx.h>
 #include <stdint.h>
 #include <stdio.h>
 #include "main.h"
@@ -11,17 +12,27 @@ BITMAPINFO bitmap_info;
 
 window_info info;
 
+POINT lastClicked = {0, 0};
+
 struct player playerInstance;
 	
 LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM w_param, LPARAM l_param) {
 	LRESULT result;
+	
 	switch(message) {
     case WM_CLOSE:
 		globalrunning = 0;
 		break;
+		
     case WM_KEYDOWN:
 		playerInstance.KeyStrokeCallBack(&playerInstance, w_param);
 		break;
+		
+	case WM_LBUTTONDOWN:
+		lastClicked.x = GET_X_LPARAM(l_param);
+		lastClicked.y = info.client_height - GET_Y_LPARAM(l_param);
+		break;
+		
     default:
 		result = DefWindowProc(window, message, w_param, l_param);
 		break;
@@ -83,6 +94,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE prev_instance, PWSTR cmd_line,
 			}
 			
 			drawRectangle(info, playerInstance.x, playerInstance.y, 100, 100, 0xFF0000);
+			drawRectangle(info, lastClicked.x, lastClicked.y, 20, 20, 0x222222);
 		}
 		StretchDIBits(hdc, 0, 0, info.client_width, info.client_height, 0, 0, info.client_width, info.client_height, info.memory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
 	}
