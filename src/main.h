@@ -3,8 +3,9 @@
 
 typedef struct window_info {
 	void *memory;
-	int client_height;
-	int client_width;
+	uint32_t bgColor;
+	int clientHeight;
+	int clientWidth;
 } window_info;
 
 typedef struct player {

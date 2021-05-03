@@ -16,6 +16,4 @@ void OnKeyStroke(player_t *player, WPARAM key) {
 		player->y -= player->speed;
 		break;
 	}
-
-	printf("player: {%i, %i}", player->x, player->y);
 }
