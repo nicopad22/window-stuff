@@ -1,6 +1,9 @@
 #include <windows.h>
 #include <stdint.h>
 
+#define PIXELWIDTH 190
+#define PIXELHEIGHT 120
+
 typedef struct window_info {
 	void *memory;
 	uint32_t bgColor;
